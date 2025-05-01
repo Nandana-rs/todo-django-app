@@ -26,7 +26,7 @@ def login_view(request):
             user = form.get_user()
             login(request, user)
             if user.is_superuser:
-                return redirect('/admin/')
+                return redirect('admin_dashboard')
             else:
                 return redirect('user_home')  # Replace with your user home URL name
         else:
@@ -38,6 +38,11 @@ def login_view(request):
 @login_required
 def user_home_view(request):
     return render(request, 'userhome.html')
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def admin_dashboard(request):
+    return render(request, 'admindashboard.html')
 
 # @user_passes_test(lambda u: u.is_superuser)
 # def admin_dashboard_view(request):
