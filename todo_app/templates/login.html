@@ -1,0 +1,175 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0;
+            background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+        }
+
+        header { 
+            background: #7e93a9;
+            color: #fff; 
+            padding: 1em; 
+            text-align: center; 
+            font-size: 1.5em;
+        }
+
+        .container { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: calc(100vh - 70px); 
+            padding: 20px;
+        }
+
+        .form-image-wrapper {
+            display: flex;
+            flex-direction: row;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .form-box { 
+            flex: 1; 
+            padding: 50px;
+            background: white;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        form { 
+            display: flex;
+            flex-direction: column;
+            max-width: 300px; 
+            margin: auto;
+        }
+
+        input { 
+            margin: 10px 0;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+
+        input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        button { 
+            padding: 12px; 
+            background: #007BFF; 
+            color: white; 
+            border: none; 
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        a { 
+            text-align: center;
+            display: block; 
+            margin-top: 15px;
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .errorlist { 
+            color: red; 
+            list-style-type: none; 
+            padding: 0; 
+            font-size: 0.9em;
+            margin: 5px 0 10px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .image-box { 
+            flex: 1; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:white;
+            padding: 20px;
+        }
+
+        .image-box img {
+            max-width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .form-image-wrapper {
+                flex-direction: column;
+            }
+
+            .image-box img {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header><h2>TodoMate</h2></header>
+<div class="container">
+    <div class="form-image-wrapper">
+        <div class="form-box">
+            <h2>Login</h2>
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div>
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {{ form.username.errors }}
+                </div>
+                <div>
+                    {{ form.password.label_tag }}
+                    {{ form.password }}
+                    {{ form.password.errors }}
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <a href="{% url 'register' %}">Not registered? Register here</a>
+        </div>
+        <div class="image-box">
+            <img src="{% static 'images/login.png' %}" alt="Login Image">
+        </div>
+    </div>
+</div>
+</body>
+</html>

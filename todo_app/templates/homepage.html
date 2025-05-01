@@ -1,56 +1,553 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>TodoMate homepage </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoMate Homepage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+ <!-- css for homepage starts here -->
+    <style>
+
+/* css for body */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            background-color: white;
+        }
+/* css for header */
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+/* css for navigation bar */
+        nav {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .menu-icon {
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        nav .nav-links a {
+            color: #f2f2f2;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+        }
+
+        nav .nav-links a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+/* css for Sidebar*/
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #007bff;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            padding: 10px 30px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            color: white;
+            cursor: pointer;
+        }
+/* css for div= Container */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .image-section {
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+
+/* css for Review Section */
+
+        .reviews-section {
+         padding: 50px 20px;
+        background-color: #f9f9f9;
+        text-align: center;
+        }
+
+        .section-title {
+         font-size: 2.2rem;
+         margin-bottom: 40px;
+        color: #333;
+        }
+
+        .reviews-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        }
+
+        .review-box {
+         background-color: #ffffff;
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        padding: 20px;
+        width: 280px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .review-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-box h5 {
+            color: #007bff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .review-box p {
+         font-style: italic;
+        color: #555;
+        }
+
+/* css for about us section */
+
+        .about-us-section {
+            padding: 60px 20px;
+            background-color: white;
+        }
+
+        .about-us-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+            }
+
+        .about-text {
+                    flex: 1 1 500px;
+                    background-color: #ffffff;
+                    padding: 30px;
+                    border-radius: 15px;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+                    transition: transform 0.3s ease;
+                }
+
+        .about-text:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .about-image {
+            flex: 1 1 400px;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+                .contact-section {
+            padding: 60px 20px;
+            background-color:white;
+        }
+
+/* css for Contact Section */
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .contact-form, .contact-info {
+            flex: 1 1 450px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .contact-form h3,
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .contact-form form input,
+        .contact-form form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .contact-form button {
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #45a049;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .contact-info ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .contact-info li {
+            margin-bottom: 10px;
+            color: #444;
+            font-size: 1rem;
+        }
+
+        .contact-info img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+
+/* Footer Styles */
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: auto;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-left,
+        .footer-right {
+            flex: 1 1 45%;
+        }
+
+        .footer-left h3,
+        .footer-right h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-left p {
+            color: #bdc3c7;
+            line-height: 1.6;
+        }
+
+        .footer-right ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .footer-right li {
+            margin-bottom: 10px;
+        }
+
+        .footer-right a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-right a:hover {
+            color: #4CAF50;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            display: inline-block;
+            padding: 10px;
+            background-color: #34495E;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: #4CAF50;
+        }
+
+        .footer-bottom {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+        }
+
+        
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-left,
+            .footer-right {
+                flex: 1 1 100%;
+            }
+        }
+
+
+    </style>
+ <!-- css for homepage ends here -->
+
+
 </head>
+
 <body>
 
-<!-- header section -->
+<!-- Header Section-->
     <header>
         <h1>TodoMate</h1>
     </header>
 
-<!-- Navigation bar section -->
+ <!-- Navigation Bar -->
     <nav>
-        <a href="#">Register</a>
-        <a href="#">Login</a>
-        <a href="#">Home</a>
+        <span class="menu-icon" onclick="toggleSidebar()">&#9776;</span>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        </div>
     </nav>
 
-<!-- code for whole container -->
+<!-- Sidebar -->
+    <div id="mySidebar" class="sidebar">
+        <span class="close-btn" onclick="closeSidebar()">&times;</span>
+        <h3 style="padding-left: 30px;">Menu</h3>
+        <a href="#">Home</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Features</a>
+        <a href="#">Help</a>
+    </div>
+
+<!-- Main Container -->
     <div class="container">
 
-<!-- Sidebar div -->
-        <div class="sidebar">
-            <h3>Menu</h3>
+<!-- Background Image Section -->
+    <img src="{% static 'images/background1.png' %}" alt="Background Image" style="width: 100%; height: auto;">
+      
+<!-- Reviews Section -->
+        <div class="reviews-section">
+            <h3 class="section-title">What Our Users Say</h3>
+            <div class="reviews-row">
+                <div class="review-box">
+                    <h5>John Doe</h5>
+                    <p>"TodoMate has helped me stay organized and on top of my tasks. Highly recommend it!"</p>
+                </div>
+                <div class="review-box">
+                    <h5>Jane Smith</h5>
+                    <p>"A simple and effective tool for task management. The interface is easy to use."</p>
+                </div>
+                <div class="review-box">
+                    <h5>David Lee</h5>
+                    <p>"TodoMate's features are exactly what I need to stay productive. Great app!"</p>
+                </div>
+                <div class="review-box">
+                    <h5>Mary Johnson</h5>
+                    <p>"I love the clean design and how easy it is to add and track tasks. It's my go-to tool."</p>
+                </div>
+            </div>
+        </div>
+
+
+<!-- About Us Section -->
+
+<div class="about-us-section">
+    <div class="about-us-container">
+        <div class="about-text">
+            <h3>About TodoMate</h3>
+            <p>
+                TodoMate is more than just a task manager — it's your daily companion for staying productive and focused.
+                Whether you're a student, a working professional, or a busy parent, TodoMate helps you manage tasks,
+                set timely reminders, and break your workload into manageable pieces.
+            </p>
+            <p>
+                Our goal is to simplify your life with a clean, user-friendly interface and smart features like task categorization,
+                deadline tracking, and daily summaries. With TodoMate, you're always in control of your time.
+            </p>
+            <p>
+                Trusted by hundreds of users, TodoMate is built with love and a deep understanding of everyday productivity needs.
+                Let us help you build better habits, meet deadlines, and achieve more.
+            </p>
+        </div>
+        <div class="about-image">
+            <img src="https://img.freepik.com/free-vector/business-task-management_23-2148658733.jpg" alt="Productivity Illustration">
+        </div>
+    </div>
+</div>
+
+
+<!-- Contact Us Section -->
+       
+<div class="contact-section">
+    <div class="contact-container">
+        <div class="contact-form">
+            <h3>Contact Us</h3>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+        <div class="contact-info">
+            <h3>Get in Touch</h3>
+            <p>We'd love to hear from you! Whether you have a question, feedback, or just want to say hello, feel free to reach out.</p>
             <ul>
-                <li>Home</li>
-                <li>About US</li>
-                <li>Contact</li>
-                <li>Features</li>
-                <li>Help</li>
-        </ul>
-      </div>
+                <li><strong>Email:</strong> support@todocate.com</li>
+                <li><strong>Phone:</strong> +91 98765 43210</li>
+                <li><strong>Location:</strong> Kochi, Kerala, India</li>
+            </ul>
+            <img src="https://img.freepik.com/free-vector/contact-us-concept-illustration_114360-2299.jpg" alt="Contact Illustration">
+        </div>
+    </div>
+</div>
 
-<!-- main content section -->
-    <div class="main-content">
-        <h2>Welcome to the ToDoMate</h2>
-        <p>This app helps you manage your tasks efficiently. </p>
+    </div>
 
-<!-- space to allow scrolling -->
+<!-- Footer  SECTION-->
+  
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            <h3>About TodoMate</h3>
+            <p>TodoMate is your go-to productivity app, helping you stay organized and achieve more. Manage tasks, set reminders, and stay on top of your game. Simple. Efficient. Effective.</p>
+        </div>
+        <div class="footer-right">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 TodoMate. All rights reserved.</p>
+    </div>
+</footer>
 
-     <div style="height: 600px;"></div>
 
-     </div>
- </div>
+<!--  javscript for Sidebar Toggle working-->
+    <script>
+        function toggleSidebar() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+        function closeSidebar() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
 
-
- <!-- Footer Section -->
-
- <p>&copy; 2025 ToDoMate. All rights reserved</p>
-    <!-- <p>Hi welcome to home page</p>
-    <h1>Hi Nandana RS</h1> -->
 </body>
+
 </html>
