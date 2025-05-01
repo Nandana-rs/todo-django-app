@@ -27,6 +27,17 @@
 <div class="content">
     <h2>Hello, {{ user.username }}!</h2>
     <p>Manage your tasks easily with TodoMate.</p>
+    <a href="{% url 'task-list' %}" style="
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+">
+    Manage My Tasks
+</a>
 </div>
 </body>
 </html>

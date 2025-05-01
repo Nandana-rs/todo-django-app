@@ -1,0 +1,12 @@
+<h2>My Tasks</h2>
+<a href="{% url 'task-create' %}">Create New Task</a>
+<ul>
+  {% for task in tasks %}
+    <li>
+      <strong>{{ task.title }}</strong> ({{ task.category }}) - Due: {{ task.due_date }}
+      [<a href="#">Edit</a>] [<a href="#">Delete</a>]
+    </li>
+  {% empty %}
+    <li>No tasks found.</li>
+  {% endfor %}
+</ul>

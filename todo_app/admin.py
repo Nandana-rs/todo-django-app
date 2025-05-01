@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib import admin
 from .models import CustomUser
 from django.contrib.auth.admin import UserAdmin
+from .models import Task
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
@@ -22,3 +23,4 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Task)
