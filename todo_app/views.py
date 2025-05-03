@@ -116,6 +116,18 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
+    
+
+
+
+#views logic for disaplying important tasks
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def important_tasks(request):
+    important_tasks = Task.objects.filter(user=request.user, priority='High')
+    return render(request, 'importanttask.html', {'important_tasks': important_tasks})
+
 
 
 

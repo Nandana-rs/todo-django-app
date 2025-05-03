@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Important Tasks</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+
+  header {
+    background-color: #343a40;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+
+  header h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ddd;
+  }
+
+  .back-button {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 14px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  nav {
+    background-color: #007bff;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .logout-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  .container {
+    padding: 30px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+
+/* Create task button */
+
+      .add-btn {
+        display: inline-block;
+        margin-bottom: 15px;
+        padding: 8px 16px;
+        background-color: #28a745;
+        color:white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+
+/* CSS for Table  */
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      th,td {
+        padding: 12px;
+        border: 1px solid #ddd;
+      }
+
+      thead {
+        background-color: #007bff;
+        color: white;
+      }
+
+/* css for edit and delete button in table */
+
+      .edit-btn {
+        background-color: #ffc107;
+        padding: 5px 10px;
+        color: black;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-right: 5px;
+      }
+
+      .delete-btn {
+            background-color: #dc3545;
+            padding: 5px 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+/* css for table ends here */
+
+.no-tasks {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #666;
+        }
+</style>
+<body>
+
+<!-- Header -->
+<header>
+  <h2>ToDoMate</h2>
+  <a href="javascript:history.back()" class="back-button">← Back</a>
+</header>
+
+<!-- Navbar -->
+<nav>
+  <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+  <h2><center>Important Tasks (High Priority)</center></h2>
+
+  {% if important_tasks %}
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in important_tasks %}
+      <tr>
+        <td>{{ task.title }}</td>
+        <td>{{ task.category }}</td>
+        <td>{{ task.due_date }}</td>
+        <td>{{ task.priority }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <div class="no-tasks">No high priority tasks found.</div>
+  {% endif %}
+</div>
+
+</body>
+</html>
