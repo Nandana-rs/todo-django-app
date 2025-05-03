@@ -1,43 +1,172 @@
 {% load static %}
-<!DOCTYPE html>
+
+
+
+
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>User Dashboard</title>
     <style>
-        body { 
-            font-family: Arial; 
-            background: #e9ecef; 
-            margin: 0; 
-            padding: 0; }
-        header { 
-            background: #343a40; 
+        body {
+            font-family: Arial;
+            background: #e9ecef;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #343a40;
             color: white;
-             padding: 1em; 
-             text-align: center; }
-        .content { 
-            text-align: center; 
-            margin-top: 100px; }
+            padding: 1em;
+            position: relative;
+            text-align: center;
+        }
+
+        #back-button {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 5px 10px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        nav {
+            background-color: #495057;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .hamburger {
+            font-size: 20px;
+            cursor: pointer;
+            color: white;
+            margin-right: 20px;
+        }
+
+        nav a {
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background-color: #6c757d;
+            border-radius: 5px;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #495057;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .sidebar a {
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #6c757d;
+        }
+
+        .hero-section {
+            position: relative;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .background-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .content-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(52, 58, 64, 0.6);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 60%;
+        }
+
+        .content-overlay a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
+
+<!-- Sidebar Section -->
+<div id="mySidebar" class="sidebar">
+    <a href="#">📌 Importants</a>
+    <a href="#">📅 Upcoming</a>
+</div>
+
+<!-- Header Section -->
+
 <header>
     <h1>Welcome to TodoMate</h1>
+    <button id="back-button" onclick="history.back()">← Back</button>
 </header>
-<div class="content">
-    <h2>Hello, {{ user.username }}!</h2>
-    <p>Manage your tasks easily with TodoMate.</p>
-    <a href="{% url 'task-list' %}" style="
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-">
-    Manage My Tasks
-</a>
+
+<!-- Navigation Section -->
+<nav>
+    <span class="hamburger" onclick="toggleSidebar()">☰</span>
+    <a href="#">👤 Profile</a>
+    <a href="{% url 'task-list' %}">📝 Tasks</a>
+    <a href="#">📰 Blog</a>
+    <a href="{% url 'logout' %}">🚪 Logout</a>
+</nav>
+
+<!-- Main Content Section -->
+
+<div class="hero-section">
+    <img src="{% static 'images/userhomebackground.jpg' %}" alt="Background" class="background-img">
+    <div class="content-overlay">
+        <h2>Hello, {{ user.username }}!</h2>
+        <p>Manage your tasks easily with TodoMate.</p>
+        <a href="{% url 'task-list' %}">Manage My Tasks</a>
+    </div>
 </div>
+
+<!-- javascript Code for sidebar Toggling -->
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById("mySidebar");
+        sidebar.style.width = sidebar.style.width === "200px" ? "0" : "200px";
+    }
+</script>
+
 </body>
 </html>

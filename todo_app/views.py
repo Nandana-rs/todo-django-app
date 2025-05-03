@@ -6,7 +6,7 @@ from .forms import CustomUserCreationForm, CustomAuthenticationForm
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
-
+from django.contrib.auth import logout
 
 
 # views for homepage
@@ -20,7 +20,7 @@ def register_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Replace 'login' with your login URL name
+            return redirect('login')  
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration.html', {'form': form})
@@ -36,12 +36,21 @@ def login_view(request):
             if user.is_superuser:
                 return redirect('admin_dashboard')
             else:
-                return redirect('user_home')  # Replace with your user home URL name
+                return redirect('user_home')  
         else:
             messages.error(request, 'Invalid username or password.')
     else:
         form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+# views for logout logic
+
+@login_required(login_url='login')
+
+def logout_view(request):
+    logout(request)
+
+    return redirect('login')
 
 # views for admin userhomepage
 
