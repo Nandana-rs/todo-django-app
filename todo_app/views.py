@@ -68,7 +68,7 @@ def admin_dashboard(request):
 
 # views for task management CRUD 
 
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy
 from .models import Task
 from .forms import TaskForm
@@ -91,5 +91,31 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+
+
+
+# view logic for task updation and task deletion
+
+from django.views.generic.edit import UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
+    model = Task
+    fields = ['title', 'description', 'category', 'due_date', 'priority']
+    template_name = 'task_form.html'
+    success_url = reverse_lazy('task-list')  #  this Redirects to task list after edit
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
+
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
+    model = Task
+    template_name = 'task_confirm_delete.html'
+    success_url = reverse_lazy('task-list')
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
+
 
 

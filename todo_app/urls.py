@@ -3,6 +3,8 @@ from . import views
 from .views import TaskListView, TaskCreateView
 from .views import logout_view
 
+from .views import TaskUpdateView, TaskDeleteView
+
 urlpatterns = [
     path('', views.homepage ,name='homepage'),
     path('register/', views.register_view, name='register'),
@@ -12,5 +14,8 @@ urlpatterns = [
     path('tasks/',TaskListView.as_view(), name='task-list'),
     path('tasks/create', TaskCreateView.as_view(), name='task-create'),
     path('logout/', views.logout_view, name='logout'),
+    path('task/<int:pk>/edit/', TaskUpdateView.as_view(), name='task-edit'),
+    path('task/<int:pk>/delete/', TaskDeleteView.as_view(), name='task-delete'),
+
 
 ]

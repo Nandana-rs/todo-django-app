@@ -140,7 +140,7 @@
 
   <!-- <br>
   <br> -->
-  
+
 <!-- Navbar Section -->
  <nav>
   <a href="{% url 'logout' %}" class="logout-button">Logout</a>
@@ -179,8 +179,9 @@
       <td>{{ task.priority }}</td>
 
       <td>
-        <a href="#" class="edit-btn">Edit</a>
-        <a href="#" class="delete-btn" onclick="return confirm('Are you sure?');">Delete</a>
+        <a href="{% url 'task-edit' task.id %}" class="edit-btn">Edit</a>
+      <a href="{% url 'task-delete' task.id %}" class="delete-btn" >Delete</a>
+
       </td>
     </tr>
     {% endfor %}
